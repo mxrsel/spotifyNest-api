@@ -7,11 +7,16 @@ export type CompositionDocument = Composition & Document;
 export class Composition {
   @Prop({ required: true })
   name: string;
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Album', required: true, default: null })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Album',
+    required: true,
+    default: null,
+  })
   album: string;
   @Prop()
   timing: string;
-  @Prop()
+  @Prop({ default: null })
   composition_number: number;
   @Prop({ default: false })
   isPublished: boolean;
