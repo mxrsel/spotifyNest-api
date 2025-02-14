@@ -11,6 +11,10 @@ import { Composition, CompositionSchema } from './schemas/composition.schema';
 import { User, UserSchema } from './schemas/user.shema';
 import { UsersController } from './users/users.controller';
 import { AuthService } from './auth/auth.service';
+import { LocalStrategy } from './local.strategy';
+import { PassportModule } from '@nestjs/passport';
+import { TokenAuthGuard } from './token-auth/token-auth.guard';
+import { RolesPermitGuard } from './roles-permit/roles-permit.guard';
 
 @Module({
   imports: [
@@ -21,6 +25,7 @@ import { AuthService } from './auth/auth.service';
       { name: Composition.name, schema: CompositionSchema },
       { name: User.name, schema: UserSchema },
     ]),
+    PassportModule,
   ],
   controllers: [
     AppController,
@@ -29,6 +34,12 @@ import { AuthService } from './auth/auth.service';
     CompositionsController,
     UsersController,
   ],
-  providers: [AppService, AuthService],
+  providers: [
+    AppService,
+    AuthService,
+    LocalStrategy,
+    TokenAuthGuard,
+    RolesPermitGuard,
+  ],
 })
 export class AppModule {}

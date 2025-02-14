@@ -2,8 +2,12 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { randomUUID } from 'crypto';
 import * as bcrypt from 'bcrypt';
+import { SetMetadata } from '@nestjs/common';
 
-enum Role {
+export const ROLES_KEYS = 'roles';
+export const Roles = (...roles: Role[]) => SetMetadata(ROLES_KEYS, roles);
+
+export enum Role {
   User = 'user',
   Admin = 'admin',
 }
@@ -46,7 +50,7 @@ UserSchema.methods.generateToken = function (this: UserDocument) {
   this.token = randomUUID();
 };
 
-UserSchema.methods.passwordCheckout = function (
+UserSchema.methods.checkPassword = function (
   this: UserDocument,
   password: string,
 ) {

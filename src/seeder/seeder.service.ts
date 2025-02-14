@@ -7,6 +7,8 @@ import {
 import { Model } from 'mongoose';
 import { Album, AlbumDocument } from '../schemas/album.schema';
 import { Artist, ArtistDocument } from '../schemas/artist.schema';
+import { User, UserDocument } from '../schemas/user.shema';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class SeederService {
@@ -17,12 +19,15 @@ export class SeederService {
     private albumModel: Model<AlbumDocument>,
     @InjectModel(Composition.name)
     private compositionModel: Model<CompositionDocument>,
+    @InjectModel(User.name)
+    private userModel: Model<UserDocument>,
   ) {}
   async seed() {
     console.log('Creating fixtures');
     await this.artistModel.deleteMany({});
     await this.albumModel.deleteMany({});
     await this.compositionModel.deleteMany({});
+    await this.userModel.deleteMany({});
 
     console.log('Collections created!');
 
@@ -117,6 +122,22 @@ export class SeederService {
         name: 'Levitate',
         timing: '2:26',
         isPublished: true,
+      },
+    );
+    await this.userModel.create(
+      {
+        email: 'msugurbekov@mail.ru',
+        password: '8686',
+        displayName: 'Marsel',
+        token: randomUUID(),
+        role: 'admin',
+      },
+      {
+        email: 'ryushima@gmail.com',
+        password: '6868',
+        displayName: 'Ryushima',
+        token: randomUUID(),
+        role: 'user',
       },
     );
   }

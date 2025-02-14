@@ -4,6 +4,7 @@ import { Artist, ArtistSchema } from '../schemas/artist.schema';
 import { Album, AlbumSchema } from '../schemas/album.schema';
 import { Composition, CompositionSchema } from '../schemas/composition.schema';
 import { SeederService } from './seeder.service';
+import { User, UserSchema } from '../schemas/user.shema';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { SeederService } from './seeder.service';
       { name: Artist.name, schema: ArtistSchema },
       { name: Album.name, schema: AlbumSchema },
       { name: Composition.name, schema: CompositionSchema },
+      { name: User.name, schema: UserSchema },
     ]),
   ],
   providers: [SeederService],
