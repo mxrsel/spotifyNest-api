@@ -8,6 +8,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Artist, ArtistSchema } from './schemas/artist.schema';
 import { Album, AlbumSchema } from './schemas/album.schema';
 import { Composition, CompositionSchema } from './schemas/composition.schema';
+import { User, UserSchema } from './schemas/user.shema';
+import { UsersController } from './users/users.controller';
+import { AuthService } from './auth/auth.service';
 
 @Module({
   imports: [
@@ -15,15 +18,17 @@ import { Composition, CompositionSchema } from './schemas/composition.schema';
     MongooseModule.forFeature([
       { name: Artist.name, schema: ArtistSchema },
       { name: Album.name, schema: AlbumSchema },
-      { name: Composition.name, schema: CompositionSchema }
-    ])
+      { name: Composition.name, schema: CompositionSchema },
+      { name: User.name, schema: UserSchema },
+    ]),
   ],
   controllers: [
     AppController,
     ArtistsController,
     AlbumsController,
     CompositionsController,
+    UsersController,
   ],
-  providers: [AppService],
+  providers: [AppService, AuthService],
 })
 export class AppModule {}
